@@ -1,6 +1,6 @@
-package br.com.ras.issues.controller.json;
+package br.com.ras.issues.admin.api.json;
 
-import br.com.ras.issues.model.IssueComment;
+import br.com.ras.issues.admin.issue.domain.IssueComment;
 
 public class IssueCommentJson {
     public String comment;

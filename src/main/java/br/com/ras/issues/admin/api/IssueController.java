@@ -1,18 +1,16 @@
-package br.com.ras.issues.controller;
+package br.com.ras.issues.admin.api;
 
-import br.com.ras.issues.controller.json.IssueJson;
-import br.com.ras.issues.controller.json.NewIssueCommentJson;
-import br.com.ras.issues.controller.json.NewIssueJson;
-import br.com.ras.issues.controller.json.UpdateIssueJson;
-import br.com.ras.issues.model.IssueComment;
-import br.com.ras.issues.service.IssueService;
+import br.com.ras.issues.admin.api.json.IssueJson;
+import br.com.ras.issues.admin.api.json.NewIssueCommentJson;
+import br.com.ras.issues.admin.api.json.NewIssueJson;
+import br.com.ras.issues.admin.api.json.UpdateIssueJson;
+import br.com.ras.issues.admin.issue.application.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import br.com.ras.issues.model.Issue;
+import br.com.ras.issues.admin.issue.domain.Issue;
 
 import java.util.List;
-import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
@@ -43,7 +41,7 @@ public class IssueController {
     @ResponseBody
     public List<IssueJson> all() {
         return issueService.all().stream()
-                .map(issue -> IssueJson.fromModel(issue))
+                .map(IssueJson::fromModel)
                 .collect(toList());
     }
 
@@ -51,12 +49,12 @@ public class IssueController {
     @ResponseStatus(OK)
     public Long newIssue(@RequestBody NewIssueJson newIssueJson) {
         Issue createdIssue = issueService.create(newIssueJson.name);
-        return createdIssue.getId();
+        return createdIssue.getId().value();
     }
 
     @RequestMapping(value = "/{issueId}", method = PUT)
     @ResponseStatus(OK)
-    public ResponseEntity<Void> update(@PathVariable Long issueId, @RequestBody UpdateIssueJson updateIssueJson) {
+    public ResponseEntity<Void> update(@PathVariable String issueId, @RequestBody UpdateIssueJson updateIssueJson) {
         try {
             issueService.update(issueId, updateIssueJson.status);
             return ok().build();
@@ -68,11 +66,11 @@ public class IssueController {
     @RequestMapping(value = "/{issueId}/comment", method = POST)
     @ResponseStatus(OK)
     public ResponseEntity<Long> newIssueComment(@PathVariable String issueId, @RequestBody NewIssueCommentJson newIssueCommentJson) {
-        Optional<IssueComment> createdIssueComment = issueService.addComment(newIssueCommentJson.comment, issueId);
-        return createdIssueComment
-                .map(issueComment -> ok(issueComment.getId()))
-                .orElse(status(FORBIDDEN).build());
+        try {
+            issueService.addComment(newIssueCommentJson.comment, issueId);
+            return ok().build();
+        } catch (RuntimeException ex) {
+            return status(FORBIDDEN).build();
+        }
     }
-
-
 }

@@ -1,8 +1,8 @@
-package br.com.ras.issues.controller.json;
+package br.com.ras.issues.admin.api.json;
 
-import br.com.ras.issues.model.IssueStatus;
-import br.com.ras.issues.model.Issue;
-import br.com.ras.issues.model.IssueComment;
+import br.com.ras.issues.admin.issue.domain.IssueStatus;
+import br.com.ras.issues.admin.issue.domain.Issue;
+import br.com.ras.issues.admin.issue.domain.IssueComment;
 
 import java.util.List;
 

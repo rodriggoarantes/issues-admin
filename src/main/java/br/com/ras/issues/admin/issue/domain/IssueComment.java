@@ -1,6 +1,8 @@
-package br.com.ras.issues.model;
+package br.com.ras.issues.admin.issue.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 import static javax.persistence.GenerationType.AUTO;
 
@@ -13,14 +15,10 @@ public class IssueComment {
 
     private String comment;
 
-    @OneToOne
-    private Issue issue;
+    private IssueComment() {}
 
-    public IssueComment() { }
-
-    public IssueComment(String comment, Issue issue) {
+    public IssueComment(String comment) {
         this.comment = comment;
-        this.issue = issue;
     }
 
     public Long getId() {

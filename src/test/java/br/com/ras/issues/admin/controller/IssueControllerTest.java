@@ -1,12 +1,12 @@
-package br.com.ras.issues.controller;
+package br.com.ras.issues.admin.controller;
 
-import br.com.ras.issues.Application;
-import br.com.ras.issues.controller.json.IssueCommentJson;
-import br.com.ras.issues.controller.json.IssueJson;
-import br.com.ras.issues.controller.json.NewIssueCommentJson;
-import br.com.ras.issues.controller.json.NewIssueJson;
-import br.com.ras.issues.controller.json.UpdateIssueJson;
-import br.com.ras.issues.model.IssueStatus;
+import br.com.ras.issues.admin.Application;
+import br.com.ras.issues.admin.api.json.IssueCommentJson;
+import br.com.ras.issues.admin.api.json.IssueJson;
+import br.com.ras.issues.admin.api.json.NewIssueCommentJson;
+import br.com.ras.issues.admin.api.json.NewIssueJson;
+import br.com.ras.issues.admin.api.json.UpdateIssueJson;
+import br.com.ras.issues.admin.issue.domain.IssueStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static br.com.ras.issues.model.IssueStatus.*;
+import static br.com.ras.issues.admin.issue.domain.IssueStatus.*;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;

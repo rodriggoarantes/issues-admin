@@ -1,4 +1,4 @@
-package br.com.ras.issues.controller.json;
+package br.com.ras.issues.admin.api.json;
 
 public class NewIssueCommentJson {
 
